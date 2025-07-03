@@ -19,17 +19,20 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
 ## Stack Tecnológica
 
 ### Backend
+
 - **Laravel 12.x** - Framework PHP
 - **SQLite** - Banco de dados
 - **PHP 8.2+** - Linguagem de programação
 
 ### Frontend
+
 - **Vue.js 3.4** - Framework JavaScript
 - **Pinia 2.1** - Gerenciamento de estado
 - **Vite 6.3** - Build tool
 - **TailwindCSS 4.0** - Framework CSS
 
 ### Ferramentas de Desenvolvimento
+
 - **Laravel Vite Plugin** - Integração Vite/Laravel
 - **Concurrently** - Execução paralela de comandos
 - **Laravel Pail** - Log viewer
@@ -63,7 +66,8 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
 
 ### 1. Gerenciamento de Tarefas (CRUD)
 
-#### Campos da Tarefa:
+#### Campos da Tarefa
+
 - `id` - Identificador único
 - `nome` - Nome da tarefa (string, obrigatório)
 - `descricao` - Descrição detalhada (text, opcional)
@@ -73,7 +77,8 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
 - `updated_at` - Data da última atualização
 - `deleted_at` - Data de exclusão (soft delete)
 
-#### Operações:
+#### Operações
+
 - **Criar** nova tarefa
 - **Listar** todas as tarefas (não excluídas)
 - **Visualizar** tarefa específica
@@ -105,6 +110,7 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
 ### Backend (Laravel)
 
 1. **Model**
+
    ```php
    // Exemplo da estrutura esperada
    class Task extends Model
@@ -128,6 +134,7 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
    - Respostas JSON padronizadas
 
 3. **Routes**
+
    ```php
    // API Routes
    Route::apiResource('tasks', TaskController::class);
@@ -139,6 +146,7 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
    - Índices apropriados para performance
 
 5. **Job**
+
    ```php
    class DeleteCompletedTask implements ShouldQueue
    {
@@ -159,6 +167,7 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
    - `TaskForm.vue` - Formulário de tarefa
 
 2. **Store (Pinia)**
+
    ```javascript
    // Exemplo de estrutura
    export const useTaskStore = defineStore('tasks', {
@@ -184,6 +193,7 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
 ## Configuração e Execução
 
 ### Pré-requisitos
+
 - PHP 8.2+
 - Composer
 - Node.js 18+
@@ -192,34 +202,40 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
 ### Instalação
 
 1. **Clone e instale dependências:**
+
    ```bash
    composer install
    npm install
    ```
 
 2. **Configuração do ambiente:**
+
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
 3. **Configuração do banco de dados (.env):**
+
    ```env
    DB_CONNECTION=sqlite
    DB_DATABASE=database/database.sqlite
    ```
 
 4. **Execute as migrações:**
+
    ```bash
    php artisan migrate
    ```
 
 5. **Execute o projeto:**
+
    ```bash
    composer run dev
    ```
-   
+
    Ou alternativamente:
+
    ```bash
    # Terminal 1 - Laravel
    php artisan serve
@@ -241,19 +257,21 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
 ## Critérios de Avaliação
 
 ### Obrigatórios
-- [ ] CRUD completo de tarefas funcionando
-- [ ] Interface baseada no design fornecido
-- [ ] Sistema de filas implementado
-- [ ] Cache implementado com invalidação
-- [ ] Soft deletes funcionando
-- [ ] Código limpo e bem estruturado
+
+- [X] CRUD completo de tarefas funcionando
+- [X] Interface baseada no design fornecido
+- [X] Sistema de filas implementado
+- [X] Cache implementado com invalidação
+- [X] Soft deletes funcionando
+- [X] Código limpo e bem estruturado
 
 ### Diferenciais
-- [ ] Testes unitários/feature
+
+- [X] Testes unitários/feature
 - [ ] Tratamento de erros robusto
 - [ ] Validações frontend e backend
 - [ ] Responsividade da interface
-- [ ] Documentação de código
+- [X] Documentação de código
 - [ ] Otimizações de performance
 
 ## Estrutura de Entrega
@@ -275,6 +293,7 @@ O candidato deve implementar uma aplicação completa de gerenciamento de tarefa
    - Atualização do `TasksContainer.vue`
 
 ### Documentação
+
 - README.md atualizado com instruções específicas
 - Comentários no código explicando lógicas complexas
 - Documentação da API (opcional, mas valorizado)
@@ -296,4 +315,75 @@ Para dúvidas sobre o teste, entre em contato com a equipe de desenvolvimento da
 
 **Boa sorte! 🚀**
 
+**Solução**
 
+# 📋 Documentação do Projeto ToDo List (Laravel + Vue + Pinia)
+
+## ✅ 1. Gerenciamento de Tarefas (CRUD)
+
+### Campos da Tarefa
+
+- `id`: Identificador único
+- `nome`: Nome da tarefa (string, obrigatório)
+- `descricao`: Descrição detalhada (text, opcional)
+- `finalizado`: Status de conclusão (boolean, padrão: false)
+- `data_limite`: Data limite para conclusão (datetime, opcional)
+- `created_at`: Data de criação
+- `updated_at`: Data da última atualização
+- `deleted_at`: Data de exclusão (soft delete)
+
+### Operações Suportadas
+
+- **Criar** nova tarefa
+- **Listar** todas as tarefas (exceto as excluídas)
+- **Visualizar** uma tarefa específica
+- **Editar** tarefa existente
+- **Marcar** tarefa como finalizada/não finalizada
+- **Excluir** tarefa (com soft delete)
+
+---
+
+## 🖥️ 2. Interface do Usuário (Frontend - Vue 3 + Pinia)
+
+- Interface baseada no layout disponível em `public/webflow/index.html`
+- Lista de tarefas com layout responsivo
+- Modal para **criação** e **edição** de tarefas
+- Botões de ação: **Editar**, **Finalizar**, **Excluir**
+- Feedback visual para estados: pendente, finalizada, excluída
+
+---
+
+## ⏳ 3. Sistema de Filas e Jobs (Laravel)
+
+- **Job de Exclusão Automática**:  
+  Quando uma tarefa é marcada como finalizada, um job é agendado para **excluir a tarefa em 10 minutos**.
+
+- **Processamento Assíncrono com Fila**:  
+  Fila configurada com `database` para execução dos jobs em background.
+
+---
+
+## 📁 Organização dos Arquivos
+
+| Pasta | Descrição |
+|-------|-----------|
+| `app/Jobs/ExcluirTarefaJob.php` | Job de exclusão automática |
+| `app/Http/Controllers/TarefaController.php` | CRUD das tarefas |
+| `resources/js/stores/taskStore.js` | Store Pinia para gerenciar tarefas |
+| `resources/js/services/taskService.js` | Comunicação com a API |
+| `resources/js/components/TaskList.vue` | Lista de tarefas |
+| `resources/js/components/TaskForm.vue` | Formulário de nova tarefa |
+| `resources/js/components/TaskItem.vue` | Item individual de tarefa |
+| `resources/js/components/TaskModal.vue` | (Opcional) Modal para edição |
+
+---
+
+## 🧩 Tecnologias Utilizadas
+
+- Laravel 11
+- Vue 3 + Vite
+- Pinia (Gerenciamento de estado)
+- Axios
+- TailwindCSS (ou Webflow export, se preferido)
+- Queue (`database`) para jobs
+- Soft Deletes com Eloquent
